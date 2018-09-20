@@ -45,8 +45,8 @@ express-boilerplate/
 
 ## Roadmap
 
-- Proper tests
-- Unit test example
-- Flexible ORM choice
-- Organize package.json
-- Preconfigure Sequelize
+- [ ] Proper tests
+- [ ] Unit test example
+- [ ] Flexible ORM choice
+- [ ] Organize package.json
+- [ ] Preconfigure Sequelize
