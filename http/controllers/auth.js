@@ -1,6 +1,6 @@
 const log = require('../../lib/log')
 const bcrypt = require('bcryptjs')
-const User = require('../../app/managers/user')
+const UserManager = require('../../app/managers/UserManager')
 const jwt = require('jsonwebtoken')
 const passportJWT = require('passport-jwt')
 
@@ -14,7 +14,7 @@ const auth = {
     login: async (req, res) => {
         if (req.body.email && req.body.password) {
             const email = req.body.email
-            const user = await User.findByEmail(email)
+            const user = await UserManager.findBy('email', email)
 
             if (user && await bcrypt.compare(req.body.password, user.password)) {
                 const payload = { id: user.id }
