@@ -3,9 +3,13 @@
 ```
 express-boilerplate/
 ├── app/
-│   ├── managers
-│   │   └── user.js
-│   └── models
+│   ├── exceptions/
+│   │   ├── index.js
+│   │   └── ResourceNotFoundException.js
+│   ├── managers/
+│   │   ├── BaseManager.js
+│   │   └── UserManager.js
+│   └── models/
 │       └── User.js
 ├── config/
 │   ├── app.js
@@ -16,14 +20,17 @@ express-boilerplate/
 │   └── seeders/
 │       └── 20180823075353-demo-user.js
 ├── http/
-│   ├── controllers/
+│   ├── controllers
 │   │   ├── auth.js
 │   │   ├── status.js
 │   │   └── users.js
-│   ├── middlewares/
-│   │   ├── formatResponse.js
+│   ├── middlewares
+│   │   ├── errorHandler.js
 │   │   ├── index.js
 │   │   └── passport.js
+│   ├── resources
+│   │   ├── BaseResource.js
+│   │   └── UserResource.js
 │   └── routes.js
 ├── lib/
 │   ├── database.js
@@ -48,5 +55,5 @@ express-boilerplate/
 - [ ] Proper tests
 - [ ] Unit test example
 - [ ] Flexible ORM choice
-- [ ] Organize package.json
+- [x] Organize package.json
 - [ ] Preconfigure Sequelize
