@@ -5,6 +5,10 @@ class BaseResource {
         }
     }
 
+    toJson() {
+        return {}
+    }
+
     static collection(resources) {
         let resourcesList = []
 
