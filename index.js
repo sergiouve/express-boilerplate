@@ -1,5 +1,3 @@
-/* global dirname */
-
 require('dotenv').config()
 
 const log = require('./lib/log')
@@ -7,7 +5,7 @@ const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const config = require('./config/app')
-const errorHandler = require('./http/middlewares').errorHandler
+const errorHandler = require('./http/middlewares/errorHandler')
 
 const app = express()
 const port = config.http.port

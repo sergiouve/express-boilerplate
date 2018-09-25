@@ -1,8 +1,7 @@
-const log = require('../../lib/log')
 const bcrypt = require('bcryptjs')
-const UserManager = require('../../app/managers/UserManager')
 const jwt = require('jsonwebtoken')
 const passportJWT = require('passport-jwt')
+const UserManager = require('../../app/managers/UserManager')
 
 const ExtractJwt = passportJWT.ExtractJwt
 const jwtOptions = {}
@@ -19,8 +18,6 @@ const auth = {
             if (await bcrypt.compare(req.body.password, user.password)) {
                 const payload = { id: user.id }
                 const token = jwt.sign(payload, jwtOptions.secretOrKey)
-
-                log.debug(`User ${req.body.email} logged in`)
 
                 return res.json({ token: token, type: 'Bearer' })
             } else {

@@ -1,6 +1,6 @@
 const status = {
     get: (req, res) => {
-        return res.send('')
+        return res.status(200).send({})
     }
 }
 
