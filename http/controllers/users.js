@@ -1,21 +1,21 @@
 const UserManager = require('../../app/managers/UserManager')
 
 const users = {
-    list: async (req, res, next) => {
+    list: async (req, res) => {
         const users = await UserManager.list()
 
-        res.locals.payload = { users: users }
-
-        next()
+        return res.status(200).send(users)
     },
 
     get: async (req, res, next) => {
-        const userId = req.params.user
-        const user = await UserManager.find(userId)
+        try {
+            const userId = req.params.user
+            const user = await UserManager.find(userId)
 
-        res.locals.payload = { user: user }
-
-        next()
+            return res.status(200).send(user)
+        } catch (error) {
+            next(error)
+        }
     }
 }
 

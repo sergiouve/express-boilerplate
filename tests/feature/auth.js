@@ -26,7 +26,6 @@ describe('Authentication tests', () => {
                 })
                 .end((err, res) => {
                     res.statusCode.should.be.eql(400)
-
                     done()
                 })
         })
@@ -35,12 +34,11 @@ describe('Authentication tests', () => {
             chai.request(api)
                 .post('/authenticate')
                 .send({
-                    email: 'admin@waavi.com',
-                    password: 'waavi'
+                    email: 'admin@example.com',
+                    password: 's3c43t'
                 })
                 .end((err, res) => {
                     res.statusCode.should.be.eql(200)
-
                     done()
                 })
         })
@@ -50,10 +48,9 @@ describe('Authentication tests', () => {
     describe('Passport middleware', () => {
         it('Does not allow unauthenticated consumers to retrieve data', done => {
             chai.request(api)
-                .get('/cockpit')
+                .get('/users')
                 .end((err, res) => {
                     res.statusCode.should.be.eql(401)
-
                     done()
                 })
         })
@@ -62,17 +59,16 @@ describe('Authentication tests', () => {
             chai.request(api)
                 .post('/authenticate')
                 .send({
-                    email: 'admin@waavi.com',
-                    password: 'waavi'
+                    email: 'admin@example.com',
+                    password: 's3c43t'
                 })
                 .end((err, res) => {
                     const authToken = res.body.token
                     chai.request(api)
-                        .get('/cockpit')
+                        .get('/users')
                         .set('Authorization', `bearer ${authToken}`)
                         .end((err, res) => {
                             res.statusCode.should.be.eql(200)
-
                             done()
                         })
                 })

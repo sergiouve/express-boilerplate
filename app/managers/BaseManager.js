@@ -9,9 +9,7 @@ class BaseManager {
     _buildWhere(clientsQuery, extraQuery) {
         clientsQuery = Object.assign(clientsQuery || {}, extraQuery || {})
 
-        // Return 1=1 if there are no conditions
-        return this.database.dialect.QueryGenerator.getWhereConditions(clientsQuery.where)
-            || '1=1'
+        return this.database.dialect.QueryGenerator.getWhereConditions(clientsQuery.where) || '1=1'
     }
 
     async _query(queryStr, opts) {

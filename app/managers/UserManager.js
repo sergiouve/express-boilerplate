@@ -1,4 +1,5 @@
-const BaseManager = require('./BaseManager');
+const BaseManager = require('./BaseManager')
+const { ResourceNotFoundException } = require('../exceptions')
 const User = require('../models/User')
 
 class UserManager extends BaseManager {
@@ -16,27 +17,28 @@ class UserManager extends BaseManager {
             raw: true
         })
 
+        if (! user) throw new ResourceNotFoundException()
+
         return user
     }
 
     async findBy(field, value) {
-        const query = {
+        const user = await User.find({
             attributes: this.attributes,
-            where: {},
+            where: { [field]: value },
             raw: true
-        }
-        query.where[field] = value
-        const user = await User.find(query)
+        })
+
+        if (! user) throw new ResourceNotFoundException()
 
         return user
     }
 
     async list() {
-        const query = {
+        const users = User.findAll({
             attributes: this.attributes,
             raw: true
-        }
-        const users = User.findAll(query)
+        })
 
         return users
     }
