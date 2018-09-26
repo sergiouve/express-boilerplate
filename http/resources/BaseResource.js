@@ -10,13 +10,13 @@ class BaseResource {
     }
 
     static collection(resources) {
-        let resourcesList = []
+        let resourcesCollection = []
 
         for (const resource of resources) {
-            resourcesList.push(new this(resource).toJson())
+            resourcesCollection.push(new this(resource).toJson())
         }
 
-        return resourcesList
+        return resourcesCollection
     }
 }
 
