@@ -6,7 +6,7 @@ class BaseResource {
     }
 
     toJson() {
-        return {}
+        return this
     }
 
     static collection(resources) {
