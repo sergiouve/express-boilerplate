@@ -4,7 +4,7 @@ class UserResource extends BaseResource {
     toJson() {
         return {
             id: this.id,
-            email: this.email,
+            email: this.email
         }
     }
 }

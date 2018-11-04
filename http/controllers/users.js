@@ -13,7 +13,7 @@ const users = {
             const userId = req.params.user
             const user = await UserManager.find(userId)
 
-            return res.status(200).send(new UserResource(user).toJson())
+            return res.status(200).send(new UserResource(user))
         } catch (error) {
             next(error)
         }
