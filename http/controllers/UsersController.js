@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken');
 const { ExtractJwt } = require('passport-jwt');
 const config = require('../../config/app');
-const UserManager = require('../../app/managers/UserManager')
-const UserResource = require('../resources/UserResource')
+const UserManager = require('../../app/managers/UserManager');
+const UserResource = require('../resources/UserResource');
 
 class UsersController {
     async authenticate(req, res) {

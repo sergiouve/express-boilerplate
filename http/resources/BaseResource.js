@@ -1,23 +1,23 @@
 class BaseResource {
     constructor(resource) {
         for (const [key, value] of Object.entries(resource)) {
-            this[key] = value
+            this[key] = value;
         }
     }
 
     toJson() {
-        return this
+        return this;
     }
 
     static collection(resources) {
-        let resourcesCollection = []
+        let resourcesCollection = [];
 
         for (const resource of resources) {
-            resourcesCollection.push(new this(resource).toJson())
+            resourcesCollection.push(new this(resource).toJson());
         }
 
-        return resourcesCollection
+        return resourcesCollection;
     }
 }
 
-module.exports = BaseResource
+module.exports = BaseResource;

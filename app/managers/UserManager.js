@@ -2,14 +2,13 @@ const BaseManager = require('./BaseManager');
 const { ResourceNotFoundException } = require('../exceptions');
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
-const database = require('../../lib/database');
 
 class UserManager extends BaseManager {
     constructor() {
         // TODO: distinguish between attributes and readable/writable attributes
         // TODO: define a baseQuery as { attributes: this.attributes, raw: true } in BaseManager?
-        super()
-        this.attributes = ['id', 'email', 'password']
+        super();
+        this.attributes = ['id', 'email', 'password'];
     }
 
     async authenticate(email, password) {
@@ -31,11 +30,11 @@ class UserManager extends BaseManager {
             attributes: this.attributes,
             where: { id: id },
             raw: true
-        })
+        });
 
-        if (! user) throw new ResourceNotFoundException()
+        if (! user) throw new ResourceNotFoundException();
 
-        return user
+        return user;
     }
 
     async findBy(field, value) {
@@ -43,21 +42,21 @@ class UserManager extends BaseManager {
             attributes: this.attributes,
             where: { [field]: value },
             raw: true
-        })
+        });
 
-        if (! user) throw new ResourceNotFoundException()
+        if (! user) throw new ResourceNotFoundException();
 
-        return user
+        return user;
     }
 
     async list() {
         const users = User.findAll({
             attributes: this.attributes,
             raw: true
-        })
+        });
 
-        return users
+        return users;
     }
 }
 
-module.exports = new UserManager
+module.exports = new UserManager;

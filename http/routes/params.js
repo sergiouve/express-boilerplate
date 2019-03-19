@@ -8,32 +8,32 @@ const User = require('../../app/models/User');
  * @returns {Function}
  */
 function resolveModel(Model, resolvedField, fieldName = 'id') {
-  return async function(req, res, next, fieldValue) {
-    let model = null;
+    return async function(req, res, next, fieldValue) {
+        let model = null;
 
-    try {
-      model = await Model.findOne({where: {[fieldName]: fieldValue}});
-    } catch (e) {
-      return next(e);
-    }
+        try {
+            model = await Model.findOne({where: {[fieldName]: fieldValue}});
+        } catch (e) {
+            return next(e);
+        }
 
-    if (!model) {
-      return res.status(404).json({
-        errorCode: 'model_not_found',
-        errorMessage: `Model '${Model.name}' with ${fieldName} '${fieldValue}' not found`,
-      });
-    }
+        if (!model) {
+            return res.status(404).json({
+                errorCode: 'model_not_found',
+                errorMessage: `Model '${Model.name}' with ${fieldName} '${fieldValue}' not found`,
+            });
+        }
 
-    req[resolvedField] = model;
-    next();
-  };
+        req[resolvedField] = model;
+        next();
+    };
 }
 
 module.exports.configure = (router) => {
-  function configureParam(paramName, model, fieldName) {
-    router.param(paramName, resolveModel(model, paramName, fieldName));
-  }
+    function configureParam(paramName, model, fieldName) {
+        router.param(paramName, resolveModel(model, paramName, fieldName));
+    }
 
-  // Define custom parameters of a route and how to resolve them.
-  configureParam('user', User, 'userId');
+    // Define custom parameters of a route and how to resolve them.
+    configureParam('user', User, 'userId');
 };

@@ -1,7 +1,7 @@
-const ResourceNotFoundException = require('./ResourceNotFoundException')
+const ResourceNotFoundException = require('./ResourceNotFoundException');
 
 const exceptions = {
     ResourceNotFoundException
-}
+};
 
-module.exports = exceptions
+module.exports = exceptions;

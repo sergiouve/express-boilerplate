@@ -1,9 +1,9 @@
-const passport = require('./passport')
-const errorHandler = require('./errorHandler')
+const passport = require('./passport');
+const errorHandler = require('./errorHandler');
 
 const middlewares = {
     passport,
     errorHandler
-}
+};
 
-module.exports = middlewares
+module.exports = middlewares;

@@ -1,5 +1,5 @@
-const Sequelize = require('sequelize')
-const sequelize = require('../../lib/database')
+const Sequelize = require('sequelize');
+const sequelize = require('../../lib/database');
 
 const User = sequelize.define('users', {
     id: {
@@ -11,6 +11,6 @@ const User = sequelize.define('users', {
     password: Sequelize.STRING
 }, {
     timestamps: true
-})
+});
 
-module.exports = User
+module.exports = User;

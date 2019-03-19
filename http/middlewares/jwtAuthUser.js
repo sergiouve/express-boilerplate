@@ -10,22 +10,22 @@ const config = require('../../config/app');
 const STRATEGY_NAME = 'user-jwt';
 
 const jwtOptions = {
-  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: config.usersAppKey
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    secretOrKey: config.usersAppKey
 };
 
 const userStrategy = new Strategy(jwtOptions, async (jwtPayload, next) => {
-  const user = await User.findById(jwtPayload.id);
-  if (user) {
-    return next(null, user);
-  }
+    const user = await User.findById(jwtPayload.id);
+    if (user) {
+        return next(null, user);
+    }
 
-  // User not found, reject the authentication
-  return next(null, false);
+    // User not found, reject the authentication
+    return next(null, false);
 });
 
 passport.use(STRATEGY_NAME, userStrategy);
 
 module.exports = () => {
-  return passport.authenticate(STRATEGY_NAME, { session: false });
+    return passport.authenticate(STRATEGY_NAME, { session: false });
 };

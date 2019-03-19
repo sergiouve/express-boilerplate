@@ -13,7 +13,7 @@ const helpers = {
             const migrate = exec(
                 'sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed:all',
                 {env: process.env},
-                (err, stdout, stderr) => {
+                err => {
                     if (err) {
                         reject(err);
                     } else {

@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config();
 
 const config = {
     environment: process.env.APP_ENV,
@@ -13,5 +13,6 @@ const config = {
         dialect: 'mysql'
     },
     usersAppKey: 'MRm0GUeH0J1NEww72zAhkK3w8KWPpCBG'
-}
-module.exports = config
+};
+
+module.exports = config;

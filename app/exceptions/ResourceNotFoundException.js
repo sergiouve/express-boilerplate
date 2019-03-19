@@ -1,9 +1,9 @@
 class ResourceNotFoundException extends Error {
     constructor() {
-        super()
-        this.message = 'Resource not found'
-        this.code = 404
+        super();
+        this.message = 'Resource not found';
+        this.code = 404;
     }
 }
 
-module.exports = ResourceNotFoundException
+module.exports = ResourceNotFoundException;
