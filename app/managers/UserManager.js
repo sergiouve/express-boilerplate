@@ -1,6 +1,8 @@
-const BaseManager = require('./BaseManager')
-const { ResourceNotFoundException } = require('../exceptions')
-const User = require('../models/User')
+const BaseManager = require('./BaseManager');
+const { ResourceNotFoundException } = require('../exceptions');
+const User = require('../models/User');
+const bcrypt = require('bcryptjs');
+const database = require('../../lib/database');
 
 class UserManager extends BaseManager {
     constructor() {
@@ -8,6 +10,20 @@ class UserManager extends BaseManager {
         // TODO: define a baseQuery as { attributes: this.attributes, raw: true } in BaseManager?
         super()
         this.attributes = ['id', 'email', 'password']
+    }
+
+    async authenticate(email, password) {
+        if (! email || ! password) {
+            return null;
+        }
+
+        const user = await User.find({ where: { email } });
+
+        if (user && (await bcrypt.compare(password, user.password))) {
+            return user;
+        }
+
+        return null;
     }
 
     async find(id) {

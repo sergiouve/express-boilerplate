@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config();
 
 module.exports = {
     'development': {
@@ -9,11 +9,13 @@ module.exports = {
         'dialect': 'mysql'
     },
     'test': {
-        'username': process.env.DB_TEST_USER,
-        'password': process.env.DB_TEST_PASSWORD,
-        'database': process.env.DB_TEST_SCHEMA,
-        'host': process.env.DB_TEST_HOST,
-        'dialect': 'mysql'
+        'username': process.env.TEST_DB_USER,
+        'password': process.env.TEST_DB_PASSWORD,
+        'database': process.env.TEST_DB_SCHEMA,
+        'host': process.env.TEST_DB_HOST,
+        'dialect': 'sqlite',
+        // wont work if specified explicitly, let sequelize default to it
+        // 'storage': ':memory:'
     },
     'production': {
         'username': process.env.DB_USER,
@@ -22,4 +24,4 @@ module.exports = {
         'host': process.env.DB_HOST,
         'dialect': 'mysql'
     }
-}
+};

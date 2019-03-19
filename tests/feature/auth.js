@@ -1,78 +1,53 @@
 /*global describe, it*/
 
-'use strict'
+'use strict';
 
-process.env.NODE_ENV = 'test'
+require('mocha');
 
-require('mocha')
-// require('should')
+const { assert } = require('chai');
+const Api = require('../helpers/Api');
+const databaseHelpers = require('../helpers/database');
 
-const chai = require('chai')
-require('should')
-const chaiHttp = require('chai-http')
-const api = require('../../index.js')
+const INVALID_USER = { email: 'fake@user.com', password: 'donteventry' };
+const VALID_USER = { email: 'admin@example.com', password: 's3cr3t' };
 
-chai.use(chaiHttp)
-
-// TODO: mock DB
 describe('Authentication tests', () => {
+    const api = new Api();
+
+    before(async () => {
+        await databaseHelpers.resetDatabase();
+    });
+
     describe('POST /authenticate', () => {
-        it('Does not allow unregistered users to login', done => {
-            chai.request(api)
-                .post('/authenticate')
-                .send({
-                    email: 'fake@user.com',
-                    password: 'donteventry'
-                })
-                .end((err, res) => {
-                    res.statusCode.should.be.eql(400)
-                    done()
-                })
-        })
+        it('Does not allow unregistered users to login', async () => {
+            const res = await api.post('/authenticate').send(INVALID_USER);
 
-        it('Allows registered users to login', done => {
-            chai.request(api)
-                .post('/authenticate')
-                .send({
-                    email: 'admin@example.com',
-                    password: 's3c43t'
-                })
-                .end((err, res) => {
-                    res.statusCode.should.be.eql(200)
-                    done()
-                })
-        })
+            assert.equal(res.status, 400);
+            assert.deepEqual(res.body, {
+                errorCode: 'invalid_credentials',
+                errorMessage: 'The user credentials were incorrect',
+            });
+        });
 
-    })
+        it('Allows registered users to login', async () => {
+            const res = await api.post('/authenticate').send(VALID_USER);
+
+            assert.equal(res.status, 200);
+        });
+    });
 
     describe('Passport middleware', () => {
-        it('Does not allow unauthenticated consumers to retrieve data', done => {
-            chai.request(api)
-                .get('/users')
-                .end((err, res) => {
-                    res.statusCode.should.be.eql(401)
-                    done()
-                })
-        })
+        it('Does not allow unauthenticated consumers to retrieve data', async () => {
+            const res = await api.get('/users');
 
-        it('Allows authenticated consumers to retrieve data', done => {
-            chai.request(api)
-                .post('/authenticate')
-                .send({
-                    email: 'admin@example.com',
-                    password: 's3c43t'
-                })
-                .end((err, res) => {
-                    const authToken = res.body.token
-                    chai.request(api)
-                        .get('/users')
-                        .set('Authorization', `bearer ${authToken}`)
-                        .end((err, res) => {
-                            res.statusCode.should.be.eql(200)
-                            done()
-                        })
-                })
-        })
-    })
+            assert.equal(res.status, 401);
+        });
 
-})
+        it('Allows authenticated consumers to retrieve data', async () => {
+            await api.authAdmin();
+            const res = await api.get('/users');
+
+            assert.equal(res.status, 200);
+        });
+    });
+});

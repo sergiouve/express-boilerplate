@@ -11,6 +11,7 @@ const config = {
         db_user: process.env.DB_USER,
         db_password: process.env.DB_PASSWORD,
         dialect: 'mysql'
-    }
+    },
+    usersAppKey: 'MRm0GUeH0J1NEww72zAhkK3w8KWPpCBG'
 }
 module.exports = config
