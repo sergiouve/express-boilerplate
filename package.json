@@ -1,6 +1,6 @@
 {
     "name": "express-boilerplate",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "dependencies": {
         "bcryptjs": "^2.4.3",
         "body-parser": "^1.15.0",
@@ -22,7 +22,7 @@
     },
     "scripts": {
         "lint": "node node_modules/eslint/bin/eslint --ignore-path .gitignore .",
-        "test": "NODE_ENV=test mocha \"tests/**/*.js\" --exit --timeout 10000",
+        "test": "npm run lint && NODE_ENV=test mocha \"tests/**/*.js\" --exit --timeout 10000",
         "start": "npm run lint && node index.js",
         "watch": "nodemon index.js",
         "migrations:rollback": "node_modules/.bin/sequelize db:migrate:undo:all",

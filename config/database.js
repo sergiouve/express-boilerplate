@@ -14,8 +14,6 @@ module.exports = {
         'database': process.env.TEST_DB_SCHEMA,
         'host': process.env.TEST_DB_HOST,
         'dialect': 'sqlite',
-        // wont work if specified explicitly, let sequelize default to it
-        // 'storage': ':memory:'
     },
     'production': {
         'username': process.env.DB_USER,
